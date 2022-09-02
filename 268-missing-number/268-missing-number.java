@@ -1,11 +1,16 @@
 class Solution {
     public int missingNumber(int[] nums) {
-        int xorValue = nums.length;
-        for(int index = 0; index<nums.length;index++)
+        Arrays.sort(nums);
+        int left = 0;
+        int right = nums.length-1;
+        while(left<=right)
         {
-            xorValue = xorValue ^ nums[index] ^ index;
+            int mid = (left+right)/2;
+            if(nums[mid]>mid)
+                right = mid - 1;
+            else
+                left = mid+1;
         }
-        
-        return xorValue;
+        return left;
     }
 }
