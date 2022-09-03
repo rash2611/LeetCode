@@ -8,7 +8,7 @@ class Solution {
         int end = row * column - 1;
         while(start<=end)
         {
-            int mid = (start + end)/2;
+            int mid = start + (end-start)/2;
             if(matrix[mid/column][mid%column] < target)
             {
                 start = mid+1;
