@@ -51,14 +51,20 @@ class Node {
 class Solution {
     static Node constructLL(int arr[]) {
         // code here
-        Node newNode = new Node(arr[0]);
-        Node head = newNode;
-        Node temp = newNode;
-        for(int i = 1;i<arr.length;i++)
+        Node head = null;
+        Node tail = null;
+        for(int i = 0;i<arr.length;i++)
         {
-            newNode = new Node(arr[i]);
-            temp.next = newNode;
-            temp = temp.next;
+            if(head == null)
+            {
+                head = new Node(arr[i]);
+                tail = head;
+            }
+            else
+            {
+                tail.next = new Node(arr[i]);
+                tail = tail.next;
+            }
         }
         return head;
     }
