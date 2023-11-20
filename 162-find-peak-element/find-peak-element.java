@@ -12,21 +12,13 @@ class Solution {
             int mid = ( low + high)/2;
             if(nums[mid] > nums[mid-1] && nums[mid]> nums[mid+1])
                 return mid;
-            if(nums[low]>nums[low+1])
+            if(nums[mid]>nums[mid-1])
             {
-                return low;
+                low = mid + 1;
             }
             else
             {
-                low++;
-            }
-            if(nums[high]>nums[high-1])
-            {
-                return high;
-            }
-            else
-            {
-                high--;
+                high = mid - 1;
             }
         }
         return -1;
