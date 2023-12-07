@@ -14,18 +14,20 @@
  * }
  */
 class Solution {
-    public int findHeight(TreeNode root){
+    public int findDepth(TreeNode root){
         if(root == null)
             return 0;
-        int leftSubtreeDepth = findHeight(root.left);
-        int rightSubtreeDepth = findHeight(root.right);
+        int leftSubtreeDepth = findDepth(root.left);
+        if(leftSubtreeDepth == -1)
+            return -1;
+        int rightSubtreeDepth = findDepth(root.right);
+        if(rightSubtreeDepth == -1)
+            return -1;
+        if(Math.abs(leftSubtreeDepth - rightSubtreeDepth) > 1)
+            return -1;
         return Math.max(leftSubtreeDepth, rightSubtreeDepth)+1;
     }
     public boolean isBalanced(TreeNode root) {
-        if(root == null)
-            return true;
-        int leftHeight = findHeight(root.left);
-        int rightHeight = findHeight(root.right);
-        return (Math.abs(leftHeight - rightHeight)) <= 1 && isBalanced(root.left) && isBalanced(root.right) ? true : false;
+        return findDepth(root)!=-1;
     }
 }
