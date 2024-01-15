@@ -1,18 +1,4 @@
 class Solution {
-    public boolean isSubsetSum(int[] nums, int i, int target, int[][] dp){
-        if(target == 0)
-            return true;
-        if(i == 0)
-            return nums[i] == target;
-        if(dp[i][target]!=-1)
-            return dp[i][target] == 0 ? false : true;
-        boolean notTaken = isSubsetSum(nums, i-1, target, dp);
-        boolean taken = false;
-        if(nums[i] <= target)
-            taken = isSubsetSum(nums, i-1, target - nums[i], dp);
-        dp[i][target] = taken || notTaken ? 1 : 0;
-        return taken || notTaken;
-    }
     public boolean canPartition(int[] nums) {
         int totSum = 0;
         int n = nums.length;
