@@ -1,20 +1,19 @@
 class Solution {
-    public int getMaxProfit(int i, int transact, int[] prices,int[][] dp)
-    {
-        if(i == prices.length || transact == 4)
-            return 0;
-        if(dp[i][transact]!=-1)
-            return dp[i][transact];
-        if(transact % 2 == 0)
-            return dp[i][transact] = Math.max(-prices[i] + getMaxProfit(i+1,transact+1,prices,dp),getMaxProfit(i+1,transact,prices,dp));
-        else
-            return dp[i][transact] = Math.max(prices[i] + getMaxProfit(i+1,transact+1,prices,dp),getMaxProfit(i+1,transact,prices,dp));
-    }
     public int maxProfit(int[] prices) {
         int n = prices.length;
-        int dp[][] = new int[n+1][4];
-        for(int row[]: dp)
-            Arrays.fill(row,-1);
-       return getMaxProfit(0,0,prices,dp); 
+        int dp[][] = new int[n+1][5];
+        for(int i = 0;i<=4;i++)
+            dp[n][i] = 0;
+        for(int i = n-1;i>=0;i--)
+        {
+            for(int transact = 3;transact>=0;transact--)
+            {
+                if(transact % 2 == 0)
+                    dp[i][transact] = Math.max(-prices[i] + dp[i+1][transact+1],dp[i+1][transact]);
+        else
+            dp[i][transact] = Math.max(prices[i] + dp[i+1][transact+1],dp[i+1][transact]);
+            }
+        }
+       return dp[0][0]; 
     }
 }
