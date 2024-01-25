@@ -1,20 +1,17 @@
 class Solution {
-    public int getMaxProfit(int i, int buy, int[] prices, int fee, int[][] dp)
-    {
-        if(i == prices.length)
-            return 0;
-        if(dp[i][buy]!= -1)
-            return dp[i][buy];
-        if(buy == 1)
-            return dp[i][buy] = Math.max(-prices[i] + getMaxProfit(i+1,0,prices,fee,dp),getMaxProfit(i+1,1,prices,fee,dp));
-        else
-            return dp[i][buy] = Math.max(prices[i] - fee + getMaxProfit(i+1,1,prices,fee,dp),getMaxProfit(i+1,0,prices,fee,dp));
-    }
     public int maxProfit(int[] prices, int fee) {
         int n = prices.length;
-        int dp[][] = new int[n][2];
-        for(int[] row : dp)
-            Arrays.fill(row,-1);
-        return getMaxProfit(0,1,prices,fee,dp);
+        int dp[][] = new int[n+1][2];
+        for(int i = n-1;i>=0;i--)
+        {
+            for(int buy = 0; buy<2;buy++)
+            {
+                if(buy == 1)
+                    dp[i][buy] = Math.max(-prices[i] + dp[i+1][0], dp[i+1][1]);
+                else
+                    dp[i][buy] = Math.max(prices[i] - fee + dp[i+1][1],dp[i+1][0]);
+            }
+        }
+        return dp[0][1];
     }
 }
