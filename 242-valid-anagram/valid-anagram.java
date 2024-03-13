@@ -2,13 +2,16 @@ class Solution {
     public boolean isAnagram(String s, String t) {
         if(s.length() != t.length())
             return false;
-        String str = t;
-        for(int i = 0; i< s.length();i++)
+        int count[] = new int[256];
+        for(int i = 0;i < s.length(); i++)
         {
-            int index = str.indexOf(s.charAt(i));
-            if(index == -1)
+            count[s.charAt(i)]++;
+            count[t.charAt(i)]--;
+        }
+        for(int i = 0;i<256;i++)
+        {
+            if(count[i] != 0)
                 return false;
-            str = str.substring(0,index) + str.substring(index+1, str.length());
         }
         return true;
     }
