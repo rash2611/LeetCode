@@ -5,13 +5,14 @@ class Solution {
         {
             if(nums[right] == 0)
                 zeros++;
-            while(zeros>k)
+            if(zeros>k)
             {
                 if(nums[left] == 0)
                     zeros--;
                 left++; 
             }
-            maxLength = Math.max(maxLength, right - left + 1);
+            else
+                maxLength = Math.max(maxLength, right - left + 1);
             right++;
         }
         return maxLength;
