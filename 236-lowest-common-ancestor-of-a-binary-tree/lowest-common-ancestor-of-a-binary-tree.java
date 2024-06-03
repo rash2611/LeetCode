@@ -8,32 +8,16 @@
  * }
  */
 class Solution {
-    public boolean rootToNode(TreeNode root, TreeNode target, List<TreeNode> list)
-    {
-        if(root == null)
-            return false;
-        list.add(root);
-        if(root == target)
-            return true;
-        if(rootToNode(root.left, target,list) || rootToNode(root.right,target,list))
-            return true;
-        list.remove(list.size()-1);
-        return false;
-    }
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        if(root == null || p == null || q == null)
-            return null;
-        ArrayList<TreeNode> l1 = new ArrayList<>();
-        ArrayList<TreeNode> l2 = new ArrayList<>();
-        rootToNode(root, p, l1);
-        rootToNode(root, q, l2);
-        int i = 0;
-        TreeNode descendant = null;
-        while(i < l1.size() && i < l2.size() && l1.get(i) == l2.get(i))
-        {
-            descendant = l1.get(i);
-            i++;
-        }
-        return descendant;
+        if(root == null || root == p || root == q)
+            return root;
+        TreeNode left = lowestCommonAncestor(root.left,p,q);
+        TreeNode right = lowestCommonAncestor(root.right,p,q);
+        if(left == null)
+            return right;
+        else if(right == null)
+            return left;
+        else
+            return root;
     }
 }
