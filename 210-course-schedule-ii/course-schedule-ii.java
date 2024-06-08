@@ -19,11 +19,14 @@ class Solution {
             if(indegree[i] == 0)
                 q.add(i);
         }
-        ArrayList<Integer> topo = new ArrayList<>();
+        //ArrayList<Integer> topo = new ArrayList<>();
+        int[] topo = new int[numCourses];
+        int index = 0;
         while(!q.isEmpty())
         {
             int curr = q.remove();
-            topo.add(curr);
+            //topo.add(curr);
+            topo[index++] = curr;
             for(int j : adj.get(curr))
             {
                 indegree[j]--;
@@ -31,17 +34,21 @@ class Solution {
                     q.add(j); 
             }
         }
-        int res[] = {};
-        if(topo.size() == numCourses)
-        {
-            res = new int[topo.size()];
-            for(int i : topo)
-            {
-                res[i] = topo.get(i);
-            }
-            return res;
+        if(index == numCourses)
+            return topo;
+        else
+            return new int[0];
+        // int res[] = {};
+        // if(topo.size() == numCourses)
+        // {
+        //     res = new int[topo.size()];
+        //     for(int i : topo)
+        //     {
+        //         res[i] = topo.get(i);
+        //     }
+        //     return res;
 
-        }
-        return res;
+        // }
+        //return res;
     }
 }
