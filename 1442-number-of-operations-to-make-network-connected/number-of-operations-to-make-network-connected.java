@@ -1,0 +1,61 @@
+class DisjointSet{
+    ArrayList<Integer> parent = new ArrayList<>();
+    ArrayList<Integer> size = new ArrayList<>();
+    public DisjointSet(int n){
+        for(int i = 0; i<=n;i++)
+        {
+            parent.add(i);
+            size.add(1);
+        }
+    }
+    public int findUltimateParent(int node)
+    {
+        if(parent.get(node) == node)
+            return node;
+        int ulp = findUltimateParent(parent.get(node));
+        parent.set(node, ulp);
+        return parent.get(node);
+    }
+    public void unionBySize(int u, int v)
+    {
+        int ulp_u = findUltimateParent(u);
+        int ulp_v = findUltimateParent(v);
+        if(ulp_u == ulp_v)
+            return;
+        if(size.get(ulp_u) < size.get(ulp_v))
+        {
+            parent.set(ulp_u, ulp_v);
+            size.set(ulp_v, size.get(ulp_v) + size.get(ulp_u));
+        }
+        else{
+            parent.set(ulp_v, ulp_u);
+            size.set(ulp_u, size.get(ulp_u) + size.get(ulp_v));
+        }
+    }
+}
+
+class Solution {
+    public int makeConnected(int n, int[][] connections) {
+        DisjointSet ds = new DisjointSet(n);
+        int extraEdges = 0;
+        for(int i = 0;i<connections.length;i++)
+        {
+            int u = connections[i][0];
+            int v = connections[i][1];
+            if(ds.findUltimateParent(u) == ds.findUltimateParent(v))
+                extraEdges++;
+            else
+                ds.unionBySize(u,v);
+        }
+        int components = 0;
+        for(int i =0;i<n;i++)
+        {
+            if(ds.parent.get(i) == i)
+                components++;
+        }
+        if(extraEdges >= components - 1)
+            return components-1;
+        else
+            return -1;
+    }
+}
