@@ -1,27 +1,39 @@
 class Solution {
     public List<List<Integer>> fourSum(int[] nums, int target) {
-        HashSet<List<Integer>> set = new HashSet<>();
+        Arrays.sort(nums);
+        List<List<Integer>> res = new ArrayList<>();
         for(int i = 0; i< nums.length;i++)
         {
+            if(i>0 && nums[i] == nums[i-1])
+                    continue;
             for(int j = i+1;j<nums.length;j++)
             {
-                HashSet<Long> numSet = new HashSet<>();
-                for(int k = j+1;k<nums.length;k++)
+                if(j>i+1 && nums[j] == nums[j-1])
+                    continue;
+                int k = j+1;
+                int l = nums.length - 1;
+                while(k<l)
                 {
                     long sum = nums[i] + nums[j];
                     sum += nums[k];
-                    long fourth = target - sum;
-                    if(numSet.contains(fourth))
+                    sum+=nums[l];
+                    if(sum == target)
                     {
-                        List<Integer> list = Arrays.asList(nums[i],nums[j],nums[k],(int)fourth);
-                        list.sort(null);
-                        set.add(list);
+                        List<Integer> list = Arrays.asList(nums[i],nums[j],nums[k],nums[l]);
+                        res.add(list);
+                        k++;l--;
+                        while(k<l && nums[k] == nums[k-1])
+                            k++;
+                        while(k<l && nums[l] == nums[l+1])
+                            l--;
                     }
-                    numSet.add((long)nums[k]);
+                    else if(sum > target)
+                        l--;
+                    else
+                        k++;
                 }
             }
         }
-        List<List<Integer>> res = new ArrayList<>(set);
         return res;
     }
 }
