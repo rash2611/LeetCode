@@ -23,9 +23,9 @@ class Solution {
                 return steps;
             for(int i = 0; i<word.length();i++)
             {
+                char[] replacedCharArray = word.toCharArray();
                 for(char ch = 'a'; ch<='z';ch++)
                 {
-                    char[] replacedCharArray = word.toCharArray();
                     replacedCharArray[i] = ch;
                     String replacedWord = new String(replacedCharArray);
                     if(set.contains(replacedWord) == true)
