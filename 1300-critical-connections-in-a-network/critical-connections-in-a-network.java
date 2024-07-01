@@ -1,45 +1,45 @@
 class Solution {
     int timer = 1;
-    public void dfs(int node,int parent,int[] tInterval, int[] visited,int[] low,List<List<Integer>> bridges, ArrayList<ArrayList<Integer>> adj)
+    public void dfs(int node, int parent,int[] visited, int[] insertionTime, int[] low, List<List<Integer>> adj, List<List<Integer>> bridges)
     {
         visited[node] = 1;
-        tInterval[node] = low[node] = timer;
+        insertionTime[node] = low[node] = timer;
         timer++;
-        for(Integer itr : adj.get(node))
+        for(Integer adjNode : adj.get(node))
         {
-            if(itr == parent)
+            if(adjNode == parent)
                 continue;
-            if(visited[itr] == 0)
+            if(visited[adjNode] == 0)
             {
-                dfs(itr,node,tInterval,visited,low,bridges,adj);
-                low[node] = Math.min(low[itr],low[node]);
-                if(low[itr] > tInterval[node])
-                    bridges.add(Arrays.asList(itr,node));
+                dfs(adjNode,node,visited,insertionTime,low,adj,bridges);
+                low[node] = Math.min(low[node], low[adjNode]);
+                if(low[adjNode] > insertionTime[node])
+                    bridges.add(Arrays.asList(node,adjNode));
             }
             else
             {
-                low[node] = Math.min(low[itr],low[node]);
+                low[node] = Math.min(low[node], low[adjNode]);
             }
         }
     }
     public List<List<Integer>> criticalConnections(int n, List<List<Integer>> connections) {
-        ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
+        List<List<Integer>> adj = new ArrayList<>();
         for(int i = 0;i<n;i++)
         {
             adj.add(new ArrayList<>());
         }
-        for(int i = 0; i<connections.size();i++)
+        for(int i = 0;i<connections.size();i++)
         {
             int u = connections.get(i).get(0);
             int v = connections.get(i).get(1);
             adj.get(u).add(v);
             adj.get(v).add(u);
         }
-        List<List<Integer>> bridges = new ArrayList<>();
-        int tinterval[] = new int[n];
-        int low[] = new int[n];
         int visited[] = new int[n];
-        dfs(0,-1,tinterval,visited,low,bridges,adj);
+        int insertionTime[] = new int[n];
+        int low[] = new int[n];
+        List<List<Integer>> bridges = new ArrayList<>();
+        dfs(0,-1,visited, insertionTime,low, adj,bridges);
         return bridges;
     }
 }
