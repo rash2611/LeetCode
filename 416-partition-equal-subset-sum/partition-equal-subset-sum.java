@@ -1,8 +1,7 @@
 class Solution {
     public boolean canPartition(int[] nums) {
         int totSum = 0;
-        int n = nums.length;
-        for(int i = 0;i<n;i++)
+        for(int i = 0; i < nums.length;i++)
         {
             totSum+=nums[i];
         }
@@ -10,26 +9,26 @@ class Solution {
             return false;
         else
         {
-            int k = totSum/2;
-            boolean prev[] = new boolean[k+1];
+            int target = totSum / 2;
+            boolean[] prev = new boolean[target+1];
             prev[0] = true;
-            if(nums[0]<=k)
+            if(nums[0] <= target)
                 prev[nums[0]] = true;
-            for(int i = 1;i<n;i++)
+            for(int i = 1; i<nums.length;i++)
             {
-                boolean curr[] = new boolean[k+1];
-                curr[0] = true;
-                for(int target = 1;target<=k;target++)
+                boolean[] curr = new boolean[target+1];
+                for(int k = 1; k<=target;k++)
                 {
-                    boolean notTaken = prev[target];
-                    boolean taken = false;
-                    if(nums[i] <= target)
-                        taken = prev[target-nums[i]];
-                    curr[target] = taken || notTaken;
+                    boolean notPick = prev[k];
+                    boolean pick = false;
+                    if(nums[i] <= k)
+                        pick = prev[k - nums[i]];
+                    curr[k] = pick || notPick;
                 }
                 prev = curr;
             }
-            return prev[k];
-       }
+             return prev[target];
+        }
+       
     }
 }
