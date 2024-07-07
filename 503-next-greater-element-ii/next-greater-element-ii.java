@@ -9,12 +9,13 @@ class Solution {
             {
                 stack.pop();
             }
-            if(!stack.isEmpty() && i < n)
+            if(i < n)
             {
-                res[i] = stack.peek();
+                if(!stack.isEmpty())
+                    res[i] = stack.peek();
+                else
+                    res[i%n] = -1;
             }
-            else
-                res[i%n] = -1;
             stack.push(nums[i%n]);
         }
         return res;
