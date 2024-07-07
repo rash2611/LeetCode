@@ -1,20 +1,22 @@
 class Solution {
     public int[] nextGreaterElements(int[] nums) {
         int n = nums.length;
-        int[] nextGreater = new int[n];
-        for(int i = 0;i<n;i++)
+        int[] res = new int[n];
+        Stack<Integer> stack = new Stack<>();
+        for(int i = 2 * n - 1; i>=0; i--)
         {
-            int greatest = -1;
-            for(int j = i+1;j<n+i;j++)
+            while(!stack.isEmpty() && nums[i%n] >= stack.peek())
             {
-                if(nums[j%n] > nums[i])
-                {
-                    greatest = nums[j%n];
-                    break;
-                }
+                stack.pop();
             }
-            nextGreater[i] = greatest;
+            if(!stack.isEmpty() && i < n)
+            {
+                res[i] = stack.peek();
+            }
+            else
+                res[i%n] = -1;
+            stack.push(nums[i%n]);
         }
-        return nextGreater;
+        return res;
     }
 }
