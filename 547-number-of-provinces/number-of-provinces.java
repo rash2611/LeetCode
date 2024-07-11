@@ -41,7 +41,7 @@ class Solution {
         {
             for(int j = 0;j<isConnected[0].length;j++)
             {
-                if(isConnected[i][j] == 1)
+                if(isConnected[i][j] == 1 && ds.findUltimateParent(i)!= ds.findUltimateParent(j))
                 {
                     ds.unionBySize(i,j);
                 }
@@ -50,7 +50,7 @@ class Solution {
         int province = 0;
         for(int i = 0;i<isConnected.length;i++)
         {
-            if(ds.findUltimateParent(i) == i)
+            if(ds.parent.get(i) == i)
                 province++;
         }
         return province;
