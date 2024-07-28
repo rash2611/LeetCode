@@ -22,7 +22,7 @@ class Solution {
                 if(grid[i][j] == 2)
                 {
                     q.add(new Pair(i,j,0));
-                    visited[i][j] = 2;
+                    visited[i][j] = 1;
                 }
                 if(grid[i][j] == 1)
                 {
@@ -48,7 +48,7 @@ class Solution {
                 if(nrow>=0 && nrow<row && ncol>=0 && ncol<column && visited[nrow][ncol] == 0 && grid[nrow][ncol] == 1)
                 {
                     q.add(new Pair(nrow,ncol,t+1));
-                    visited[nrow][ncol] = 2;
+                    visited[nrow][ncol] = 1;
                     count++;
                 }
             }
