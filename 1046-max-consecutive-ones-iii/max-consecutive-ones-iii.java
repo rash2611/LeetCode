@@ -9,10 +9,9 @@ class Solution {
             {
                 if(nums[left] == 0)
                     zeros--;
-                left++; 
+                left++;
             }
-            else
-                maxLength = Math.max(maxLength, right - left + 1);
+            maxLength = Math.max(maxLength, right - left + 1);
             right++;
         }
         return maxLength;
